@@ -1,0 +1,37 @@
+{% extends "layout/layout.html" %}
+{% load static %}
+{% block nav %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{% url 'home_page' %}">강의평가</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+
+      {% if request.session.college %}
+      <li class="nav-item activate">
+        <form action="{% url 'home_page' %}" method='GET'>
+          <input type="hidden" value="college_del" name="college_del">
+          <button class="nav-link btn btn-link">대학교 다시 선택</button>
+        </form>
+      </li>
+      {% endif %}
+    </ul>
+    {% if request.user.is_authenticated %}
+    {{request.user}}
+    <a href="{% url 'logout'%}">
+      <button class="nav-link btn btn-link">로그아웃</button>
+    </a>
+    {%else%}
+        Guest
+      <a href="{% url 'login'%}">
+        <button class="nav-link btn btn-link">로그인</button>
+      </a>
+    {% endif %}
+  </div>
+</nav>
+
+{% endblock %}
